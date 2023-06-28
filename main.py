@@ -1,6 +1,6 @@
 import pygame as p
+from player import Player
 
-p.init()
 WIDTH = 960
 HEIGHT = 540
 MAX_FPS = 60 # for animations
@@ -13,8 +13,12 @@ def main():
     screen.fill(p.Color("white"))
     current_level = loadLevels()
     screen.blit(current_level,(0,0))
+    moving_sprites = p.sprite.Group()
+    player = Player(WIDTH/2,HEIGHT/2)
+    moving_sprites.add(player)
     running = True
     while running:
+        moving_sprites.clear(screen,current_level)
         # Player inputs
         for e in p.event.get():
             # Player exits window 
@@ -22,9 +26,15 @@ def main():
                 running = False 
             # Player inputs
             if e.type == p.KEYDOWN:
-                pass
-        clock.tick(MAX_FPS)
+                moving_sprites.update(e.key)  
+            if e.type == p.KEYUP: 
+                moving_sprites.update(e.key)
+            
+        moving_sprites.draw(screen)
         p.display.flip()
+        clock.tick(MAX_FPS)
+        print(moving_sprites)
+        
 
 def loadLevels():
     bg_level1 = p.image.load("Background/bg_level1.png")
