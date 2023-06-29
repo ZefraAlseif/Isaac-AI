@@ -24,12 +24,9 @@ def main():
             # Player exits window 
             if e.type == p.QUIT:
                 running = False 
-            # Player inputs
-            if e.type == p.KEYDOWN:
-                moving_sprites.update(e.key)  
-            if e.type == p.KEYUP: 
-                moving_sprites.update(e.key)
             
+        # Player inputs      
+        moving_sprites.update()    
         moving_sprites.draw(screen)
         p.display.flip()
         clock.tick(MAX_FPS)
