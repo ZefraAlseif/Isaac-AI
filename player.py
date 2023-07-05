@@ -8,8 +8,8 @@ class Player(p.sprite.Sprite):
         
         # player movement
         self.direction = p.math.Vector2(0,0) # direction is 1,2,3 or 4
-        self.speed = 5  
-        #self.map = {(0,1):0,(0,-1):1,(-1,0):2,(1,0):3}
+        self.speed = 5
+        # Storing animation sprites  
         self.sprites = []
         folder_dir = "D:\Programming Projects\Isaac AI\Player_Sprites"
         """
@@ -20,18 +20,18 @@ class Player(p.sprite.Sprite):
             temp_image = p.image.load(f"Player_Sprites\{image}")
             temp_image = p.transform.scale(temp_image, (64,64))
             self.sprites.append(temp_image)
-        print(self.sprites)
+        # Creating the player
         self.current_sprite = 1
         self.image = self.sprites[self.current_sprite]
         self.rect = self.image.get_rect()
         self.rect.topleft = [pos_x,pos_y]
-        # Animate the player movement
+        # For animation of player
         self.move_left = False
         self.move_right = False
         self.move_up = False
         self.move_down = False
         
-    # Look in the location to move
+    # Get the player movement
     def getInput(self):
         keys = p.key.get_pressed()
         if  keys[p.K_w] or keys[p.K_UP]:
@@ -58,7 +58,8 @@ class Player(p.sprite.Sprite):
             self.direction.x = 0
             self.move_left = False
             self.move_right = False
-
+    
+    # Movement animation of the player
     def getAnimation(self):
         if self.move_up:
             # 4 or 5
@@ -89,6 +90,7 @@ class Player(p.sprite.Sprite):
             else:
                 self.current_sprite = not temp[self.current_sprite]
     
+    # Update the player movement & Animations
     def update(self):
         self.getInput()
         self.getAnimation()

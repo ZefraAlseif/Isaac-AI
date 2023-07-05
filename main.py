@@ -34,7 +34,7 @@ def main():
         
 
 def loadLevels():
-    bg_level1 = p.image.load("Background/bg_level1.png")
+    bg_level1 = p.image.load("Background/level_test.png")
     bg_level1 = p.transform.scale(bg_level1, (960,540)) 
     return bg_level1
 
